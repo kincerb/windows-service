@@ -1,0 +1,6 @@
+black
+docformatter
+isort
+flake8
+mypy
+pywin32
