@@ -8,7 +8,8 @@
 # Events are generated for USB device insertion and removal, power state
 # changes and hardware profile events - so try putting your computer to
 # sleep and waking it, inserting a memory stick, etc then check the event log
-
+from pathlib import Path
+import sys
 import win32serviceutil, win32service
 import win32event
 import servicemanager
@@ -25,6 +26,7 @@ class EventDemoService(win32serviceutil.ServiceFramework):
     _svc_description_ = (
         "Demonstrates a Python service which takes advantage of the extra notifications"
     )
+    _exe_path_ = str(Path(sys.exec_prefix).joinpath('Scripts', 'pythonservice.exe'))
 
     def __init__(self, args):
         win32serviceutil.ServiceFramework.__init__(self, args)
