@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/../../../../Program Files/Python310/Lib/asyncio/.idea/asyncio.iml" filepath="$PROJECT_DIR$/../../../../Program Files/Python310/Lib/asyncio/.idea/asyncio.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/windows-service.iml" filepath="$PROJECT_DIR$/.idea/windows-service.iml" />
     </modules>
   </component>

@@ -10,10 +10,16 @@ The issue is due to the *ProactorEventLoop* not supporting *add_reader/writer*. 
 properly support detaching from a process, because you can use the *ProactorEventLoop* to run the service in *debug*,
 which stays attached to the process.
 
-## Links to related issues
+## Reference Links
+
+### Open Issues
 
 - [cpython github issue page](https://github.com/python/cpython/issues/81554)
 - [tornadoweb](https://github.com/tornadoweb/tornado/issues/2608)
+
+### Documentation
+
+- [asyncio platform support](https://docs.python.org/3.10/library/asyncio-platforms.html#asyncio-platform-support)
 
 ## Getting started
 
@@ -58,3 +64,12 @@ _exe_path_ = str(Path(sys.exec_prefix).joinpath('Scripts', 'pythonservice.exe'))
 ```powershell
 python .\venv\Scripts\main.py [ install | remove | start | debug ]
 ```
+
+## Code References
+
+Looking at the [pywin32 source code](https://github.com/mhammond/pywin32/blob/e1c0237a6897dbc4adbfda6470711fade43228b7/win32/Lib/win32serviceutil.py#L873), 
+when you run a service in *debug*, the service is started with `os.system`. 
+
+When you start the service without *debug*, it uses `win32service.StartService()`, which in turn calls a 
+[C function](https://github.com/mhammond/pywin32/blob/e1c0237a6897dbc4adbfda6470711fade43228b7/win32/src/win32service.i#L1183)
+that requires a handle to the service. With no `add_reader()` method, I believe this is why it fails with the *ProactorEventLoop*.
